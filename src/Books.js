@@ -4,7 +4,7 @@ import {
   View,
   ScrollView,
   StyleSheet,
-  TextInput, 
+  TextInput,
   TouchableOpacity
 } from 'react-native'
 import { addBook, removeBook } from './actions'
@@ -18,28 +18,31 @@ const initialState = {
 
 class Books extends React.Component<{}> {
   state = initialState
-  
+
   updateInput = (key, value) => {
     this.setState({
       ...this.state,
       [key]: value
     })
   }
-  
+
   addBook = () => {
     this.props.dispatchAddBook(this.state)
     this.setState(initialState)
   }
-  
+
   removeBook = (book) => {
     this.props.dispatchRemoveBook(book)
   }
-  
+
 
   render() {
     const { books } = this.props
+    console.log('==books==')
+    console.log(books)
 
     return (
+
       <View style={styles.container}>
         <Text style={styles.title}>Books</Text>
         <ScrollView
@@ -56,8 +59,10 @@ class Books extends React.Component<{}> {
             ))
           }
         </ScrollView>
+
+
         <View style={styles.inputContainer}>
-          <View style={styles.inputWrapper}>
+          { <View style={styles.inputWrapper}>
             <TextInput
               value={this.state.name}
               onChangeText={value => this.updateInput('name', value)}
@@ -70,12 +75,14 @@ class Books extends React.Component<{}> {
               style={styles.input}
               placeholder='Author Name'
             />
-          </View>
-          <TouchableOpacity onPress={this.addBook}>
+          </View>}
+
+          {<TouchableOpacity onPress={this.addBook}>
             <View style={styles.addButtonContainer}>
               <Text style={styles.addButton}>+</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity>}
+
         </View>
       </View>
     )
